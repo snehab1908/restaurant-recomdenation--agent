@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant Recommendation AI Agent</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        input, select, button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 250px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Restaurant Recommendation AI Agent</h1>
+
+    <label>Select Cuisine:</label><br>
+    <select id="cuisine">
+        <option value="Indian">Indian</option>
+        <option value="Chinese">Chinese</option>
+        <option value="Italian">Italian</option>
+    </select><br>
+
+    <label>Budget (₹):</label><br>
+    <input type="number" id="budget" placeholder="Enter budget"><br>
+
+    <button onclick="recommendRestaurant()">Get Recommendation</button>
+
+    <div id="result"></div>
+
+    <script>
+        const restaurants = [
+            { name: "Spice Garden", cuisine: "Indian", cost: 300 },
+            { name: "Dragon House", cuisine: "Chinese", cost: 500 },
+            { name: "Pasta Palace", cuisine: "Italian", cost: 700 },
+            { name: "Food Corner", cuisine: "Indian", cost: 200 }
+        ];
+
+        function recommendRestaurant() {
+            const cuisine = document.getElementById("cuisine").value;
+            const budget = parseInt(document.getElementById("budget").value);
+
+            const matches = restaurants.filter(r =>
+                r.cuisine === cuisine && r.cost <= budget
+            );
+
+            const result = document.getElementById("result");
+
+            if (matches.length > 0) {
+                result.innerHTML =
+                    "Recommended: " +
+                    matches.map(r => `${r.name} (₹${r.cost})`).join(", ");
+            } else {
+                result.innerHTML =
+                    "No restaurants found within your budget.";
+            }
+        }
+    </script>
+
+</body>
+</html>
